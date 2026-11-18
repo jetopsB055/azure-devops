@@ -7,12 +7,34 @@ stages:
   jobs:
   - job: BuildJob
     displayName: Build the Application
+    timeoutInMinutes: 20  # Timeout after 20 minutes if not completed
     steps:
     - script: |
-        mkdir -p $(Build.ArtifactStagingDirectory)/output
-        echo "Hello, World!" > $(Build.ArtifactStagingDirectory)/output/hello.txt
-      displayName: Generate Files
+        echo "Building the application..."
+        sleep 10
+      displayName: Compile Code
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')  # Only run on the main branch
 
-    - publish: $(Build.ArtifactStagingDirectory)/output
-      artifact: drop  # Name of the artifact
-      displayName: Publish Build Artifact
+    - script: |
+        echo "This step is critical!"
+        exit 1  # Simulate an error
+      displayName: Critical Step
+      continueOnError: false  # Fail the job if this step fails
+
+    - script: |
+        echo "This step will run even if the previous step failed"
+        sleep 5
+      displayName: Optional Step
+      continueOnError: true  # Mark the job as successful even if this step fails
+
+- stage: Deploy
+  displayName: Deploy Stage
+  dependsOn: Build
+  condition: succeededOrFailed()  # Run this stage even if Build fails
+  jobs:
+  - job: DeployJob
+    displayName: Deploy the Application
+    timeoutInMinutes: 15  # Timeout after 15 minutes
+    steps:
+    - script: echo "Deploying the application..."
+      displayName: Deploy Step
