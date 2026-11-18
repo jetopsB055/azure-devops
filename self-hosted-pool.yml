@@ -1,0 +1,5 @@
+pool:
+  name: 'MyAgentPool'
+  demands:
+    - npm
+    - Agent.Version -gt 2.144.0

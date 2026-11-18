@@ -1,0 +1,17 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: MyVariableGroup
+
+steps:
+- script: |
+    echo "The value of MyIntegerVariable is $(MyIntegerVariable)"
+    if [ $(MyIntegerVariable) -gt 5 ]; then
+      echo "The value is greater than 5."
+    else
+      echo "The value is less than or equal to 5."
+  displayName: 'Print and Use Integer Variable'

@@ -1,0 +1,7 @@
+schedules:
+- cron: "0 0 * * *" # Runs daily at midnight (UTC)
+  displayName: Daily Midnight Build
+  branches:
+    include:
+    - main
+  always: true

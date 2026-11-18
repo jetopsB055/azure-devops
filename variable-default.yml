@@ -1,0 +1,12 @@
+variables:
+  - name: myVar
+    value: Hello, World!
+
+steps:
+  - script: echo $(myVar)
+
+# For assigning variables during pipeline execution
+steps:
+  - script: echo "##vso[task.setvariable variable=myDynamicVar]DynamicValue"
+  - script: echo "The value of myDynamicVar is $(myDynamicVar)"
+

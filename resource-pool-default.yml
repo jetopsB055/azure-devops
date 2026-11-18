@@ -1,0 +1,22 @@
+trigger:
+- main
+
+resources:
+  repositories:
+  - repository: myExternalRepo   # Identifier for the external repo
+    type: git                   # Type of repository (git, github, etc.)
+    name: OrganizationName/RepoName # Organization/Repository name
+    ref: refs/heads/main        # Branch reference to use
+    endpoint: myServiceConnection # Service connection for authentication
+
+stages:
+- stage: Build
+  displayName: Build Stage
+  jobs:
+  - job: BuildJob
+    steps:
+    - checkout: myExternalRepo  # Checkout the external repository
+    - script: |
+        echo "Building the application..."
+        ls myExternalRepoFolder
+      displayName: Build Application

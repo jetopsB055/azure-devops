@@ -1,0 +1,14 @@
+jobs:
+- job: Build
+  displayName: 'Build Job'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - script: echo "Building the application"
+
+- job: Test
+  displayName: 'Test Job'
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - script: echo "Running tests"

@@ -1,0 +1,10 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - src/*
+  tags:
+    include:
+    - v1.*

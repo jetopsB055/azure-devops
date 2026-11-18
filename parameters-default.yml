@@ -1,0 +1,11 @@
+parameters:
+  - name: environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - staging
+      - prod
+
+steps:
+  - script: echo "Deploying to the $(parameters.environment) environment"
